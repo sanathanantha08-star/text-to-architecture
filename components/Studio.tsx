@@ -15,9 +15,6 @@ export default function Studio() {
       <div className="flex h-screen w-screen flex-col overflow-hidden">
         <header className="flex items-center justify-between border-b border-slate-800 bg-slate-950 px-4 py-2.5">
           <div className="flex items-center gap-2">
-            <span className="rounded bg-sky-600 px-1.5 py-0.5 text-xs font-bold text-white">
-              ArchGen
-            </span>
             <span className="text-sm text-slate-400">
               AI AWS Architecture Studio
             </span>

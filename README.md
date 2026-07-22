@@ -5,6 +5,38 @@ diagram. A prompt goes to **Cohere** (`command-r-plus`), which returns a
 structured JSON graph (never an image); the frontend renders it on a draggable,
 resizable React Flow canvas — draw.io / AILINE style.
 
+## Demo
+
+▶️ **[Watch the demo video](https://drive.google.com/file/d/1Knf0R-5CzMSXWY1JYr_-qhflfN-_6wrv/view?usp=sharing)**
+
+**1. Start with a blank canvas.** Type a system description in plain English, or
+pick one of the example prompts, then hit **Generate**.
+
+![Empty studio with prompt bar and example chips](public/1.png)
+
+**2. Generation in progress.** The prompt is sent to Cohere, which returns a
+structured graph — a spinner shows while nodes and connections are designed.
+
+![Generating state with in-progress spinner](public/2.png)
+
+**3. A fully rendered, editable diagram.** CloudFront routes to an Application
+Load Balancer inside a VPC, which fans out to EC2, Lambda, and an S3 bucket —
+laid out automatically, with the original prompt kept in the history panel.
+
+![Generated architecture: CloudFront → ALB in a VPC → EC2, Lambda, S3](public/3.png)
+
+**4. Add anything by hand.** The **+ Node** picker offers a searchable palette of
+AWS services (CloudFront, ALB, API Gateway, VPC, EC2, Lambda, S3, and more) to
+drop straight onto the canvas.
+
+![Add-a-node picker with searchable AWS service icons](public/4.png)
+
+**5. Iterate with follow-up edits.** Ask for a change in natural language — here
+an **RDS** database has been added below the VPC — and the diagram updates in
+place. Export to PNG/SVG or copy as JSON/Mermaid when you're done.
+
+![Updated diagram with an RDS database added](public/5.png)
+
 ## Stack
 
 
