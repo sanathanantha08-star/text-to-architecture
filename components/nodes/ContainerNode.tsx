@@ -19,6 +19,7 @@ export default function ContainerNode({
   const meta = getServiceMeta(data.service);
   const color = getCategoryColor(data.service);
   const updateNodeLabel = useDiagramStore((s) => s.updateNodeLabel);
+  const takeSnapshot = useDiagramStore((s) => s.takeSnapshot);
 
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(data.label);
@@ -49,6 +50,7 @@ export default function ContainerNode({
         color={color}
         minWidth={200}
         minHeight={140}
+        onResizeStart={takeSnapshot}
       />
 
       <Handle id="c-in" type="target" position={Position.Top} />

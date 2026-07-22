@@ -7,7 +7,7 @@ import IconPicker from "./IconPicker";
 
 export default function Toolbar() {
   const addServiceNode = useDiagramStore((s) => s.addServiceNode);
-  const deleteSelected = useDiagramStore((s) => s.deleteSelected);
+  const addTextNode = useDiagramStore((s) => s.addTextNode);
   const { fitView } = useReactFlow();
   const [showPicker, setShowPicker] = useState(false);
 
@@ -21,13 +21,12 @@ export default function Toolbar() {
         >
           + Node
         </button>
-        <div className="h-5 w-px bg-slate-700" />
         <button
-          onClick={deleteSelected}
-          className="rounded px-2.5 py-1.5 text-xs font-medium text-rose-300 hover:bg-slate-800"
-          title="Delete selected nodes/edges (or press Backspace)"
+          onClick={addTextNode}
+          className="rounded px-2.5 py-1.5 text-xs font-medium text-slate-200 hover:bg-slate-800"
+          title="Add a free-floating text box"
         >
-          Delete
+          + Text
         </button>
         <div className="h-5 w-px bg-slate-700" />
         <button

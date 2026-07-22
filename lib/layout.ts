@@ -203,7 +203,12 @@ export function flowToSpec(
 
   return {
     title,
-    nodes: nodes.map((n) => {
+    nodes: nodes
+      // Free-floating text annotations aren't part of the architecture spec.
+      .filter(
+        (n): n is Exclude<AppNode, { type: "text" }> => n.type !== "text",
+      )
+      .map((n) => {
       const { x, y } = absPos(n.id);
       return {
         id: n.id,

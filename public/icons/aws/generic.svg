@@ -1,12 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#5A6B86"/>
-      <stop offset="1" stop-color="#5A6B86" stop-opacity="0.82"/>
-    </linearGradient>
-  </defs>
-  <rect x="2" y="2" width="60" height="60" rx="12" fill="url(#g)"/>
-  <text x="32" y="32" fill="#ffffff" font-family="Arial, Helvetica, sans-serif"
-        font-size="22" font-weight="700" text-anchor="middle"
-        dominant-baseline="central">SVC</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><title>Icon-Resource/General-Resource/Res_Generic-Application_48_Light</title><path fill="#232f3d" fill-rule="evenodd" d="M37 35h9v2h-9v9h-2v-9h-9v-2h9v-9h2zM4 44h16V28H4zm17-18H3a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V27a1 1 0 0 0-1-1m7-6h16V4H28zM45 2H27a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1M4 20h16V4H4zM21 2H3a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1"/></svg>

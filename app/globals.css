@@ -26,10 +26,57 @@ body {
 }
 
 .react-flow__handle {
-  width: 8px;
-  height: 8px;
+  width: 12px;
+  height: 12px;
   background: #94a3b8;
-  border: 1px solid #1e293b;
+  border: 1.5px solid #0b0f19;
+  transition: transform 0.1s ease, background 0.1s ease, box-shadow 0.1s ease;
+}
+
+/* Invisible enlarged hit area so handles are easy to grab */
+.react-flow__handle::after {
+  content: "";
+  position: absolute;
+  inset: -9px;
+  border-radius: 9999px;
+}
+
+/* Surface handles more when hovering the node, and highlight the one under the cursor */
+.react-flow__node:hover .react-flow__handle {
+  background: #cbd5e1;
+}
+.react-flow__handle:hover,
+.react-flow__handle.connectingfrom,
+.react-flow__handle.connectingto {
+  background: #38bdf8;
+  transform: scale(1.4);
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.25);
+  cursor: crosshair;
+}
+
+/* Give the whole node a crosshair while a connection is in progress */
+.react-flow.connecting .react-flow__node {
+  cursor: crosshair;
+}
+
+/* Animated "…" that trails the generating message */
+.archgen-dots::after {
+  content: "";
+  animation: archgen-dots 1.4s steps(4, end) infinite;
+}
+@keyframes archgen-dots {
+  0% {
+    content: "";
+  }
+  25% {
+    content: ".";
+  }
+  50% {
+    content: "..";
+  }
+  75% {
+    content: "...";
+  }
 }
 
 .archgen-scroll::-webkit-scrollbar {

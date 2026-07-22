@@ -1,7 +1,7 @@
 // Generates simple colored SVG placeholder icons for every service key.
 // Drop the official AWS Architecture Icons into public/icons/aws/ later at the
 // same file names to replace these — no code changes needed.
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -63,11 +63,24 @@ function svg(color, label) {
 `;
 }
 
+// Only fill in icons that are missing. Real icons dropped in at these filenames
+// (e.g. the official AWS Architecture Icons) are left untouched.
+const force = process.argv.includes("--force");
 let count = 0;
+let skipped = 0;
 for (const [key, [category, label]] of Object.entries(SERVICES)) {
+  const dest = join(outDir, `${key}.svg`);
+  if (!force && existsSync(dest)) {
+    skipped += 1;
+    continue;
+  }
   const color = COLORS[category] ?? COLORS.generic;
-  writeFileSync(join(outDir, `${key}.svg`), svg(color, label), "utf8");
+  writeFileSync(dest, svg(color, label), "utf8");
   count += 1;
 }
 
-console.log(`Generated ${count} placeholder icons in public/icons/aws/`);
+console.log(
+  `Generated ${count} placeholder icons in public/icons/aws/` +
+    (skipped ? ` (kept ${skipped} existing)` : "") +
+    (force ? "" : " — pass --force to overwrite existing files"),
+);

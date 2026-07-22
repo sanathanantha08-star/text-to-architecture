@@ -39,10 +39,18 @@ export default function EditableEdge({
 
   const label = data?.label ?? "";
 
+  const startEditing = () => {
+    setDraft(label);
+    setEditing(true);
+  };
+
   const commit = () => {
     setEditing(false);
     updateEdgeLabel(id, draft.trim());
   };
+
+  // Nothing to show on a bare, unselected edge — keeps the canvas clean.
+  const showLabelLayer = editing || Boolean(label) || selected;
 
   return (
     <>
@@ -52,48 +60,59 @@ export default function EditableEdge({
         markerEnd={markerEnd}
         style={{ stroke: selected ? "#38bdf8" : "#64748b" }}
       />
-      <EdgeLabelRenderer>
-        <div
-          className="group nodrag nopan absolute flex items-center gap-1"
-          style={{
-            transform: `translate(-50%, -50%) translate(${labelX}px, ${labelY}px)`,
-            pointerEvents: "all",
-          }}
-        >
-          {editing ? (
-            <input
-              autoFocus
-              value={draft}
-              onChange={(e) => setDraft(e.target.value)}
-              onBlur={commit}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") commit();
-                if (e.key === "Escape") setEditing(false);
-              }}
-              placeholder="label"
-              className="w-24 rounded bg-slate-800 px-1 text-center text-[10px] text-slate-100 outline-none ring-1 ring-sky-500"
-            />
-          ) : (
-            <button
-              onDoubleClick={() => {
-                setDraft(label);
-                setEditing(true);
-              }}
-              className="rounded bg-slate-800/90 px-1.5 py-0.5 text-[10px] text-slate-200 ring-1 ring-slate-700 hover:ring-sky-500"
-              title="Double-click to edit label"
-            >
-              {label || "+ label"}
-            </button>
-          )}
-          <button
-            onClick={() => deleteEdge(id)}
-            className="hidden h-4 w-4 items-center justify-center rounded-full bg-rose-600 text-[10px] leading-none text-white group-hover:flex"
-            title="Delete edge"
+      {showLabelLayer && (
+        <EdgeLabelRenderer>
+          <div
+            className="nodrag nopan absolute flex items-center gap-1"
+            style={{
+              transform: `translate(-50%, -50%) translate(${labelX}px, ${labelY}px)`,
+              pointerEvents: "all",
+            }}
           >
-            ×
-          </button>
-        </div>
-      </EdgeLabelRenderer>
+            {editing ? (
+              <input
+                autoFocus
+                value={draft}
+                onChange={(e) => setDraft(e.target.value)}
+                onBlur={commit}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") commit();
+                  if (e.key === "Escape") setEditing(false);
+                }}
+                placeholder="label"
+                className="w-28 rounded bg-slate-800 px-1.5 py-0.5 text-center text-[11px] text-slate-100 outline-none ring-1 ring-sky-500"
+              />
+            ) : label ? (
+              // Readable text — single click to edit.
+              <span
+                onClick={startEditing}
+                className="cursor-text rounded bg-slate-950/70 px-1.5 py-0.5 text-[11px] font-medium text-slate-100"
+                title="Click to edit label"
+              >
+                {label}
+              </span>
+            ) : (
+              // No label yet, but the edge is selected: offer to add one.
+              <button
+                onClick={startEditing}
+                className="rounded bg-slate-800/90 px-1.5 py-0.5 text-[11px] text-slate-300 ring-1 ring-slate-600 hover:ring-sky-500"
+                title="Add a label"
+              >
+                + label
+              </button>
+            )}
+            {selected && (
+              <button
+                onClick={() => deleteEdge(id)}
+                className="flex h-4 w-4 items-center justify-center rounded-full bg-rose-600 text-[10px] leading-none text-white"
+                title="Delete edge"
+              >
+                ×
+              </button>
+            )}
+          </div>
+        </EdgeLabelRenderer>
+      )}
     </>
   );
 }

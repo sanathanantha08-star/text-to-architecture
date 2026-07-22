@@ -14,6 +14,7 @@ export default function PromptBar() {
   const setSpec = useDiagramStore((s) => s.setSpec);
   const getSpec = useDiagramStore((s) => s.getSpec);
   const pushHistory = useDiagramStore((s) => s.pushHistory);
+  const setGenerating = useDiagramStore((s) => s.setGenerating);
   const { fitView } = useReactFlow();
 
   const hasGraph = nodes.length > 0;
@@ -22,6 +23,7 @@ export default function PromptBar() {
     const value = text.trim();
     if (!value || loading) return;
     setLoading(true);
+    setGenerating(true);
     setError(null);
     try {
       const res = await fetch("/api/generate", {
@@ -46,6 +48,7 @@ export default function PromptBar() {
       setError("Network error — is the dev server running?");
     } finally {
       setLoading(false);
+      setGenerating(false);
     }
   }
 
